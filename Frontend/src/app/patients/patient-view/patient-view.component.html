@@ -1,0 +1,55 @@
+<div class="patient-view">
+    <div *ngIf="patient" class="container d-flex flex-fill justify-content-start">
+        <table class="table patient-table w-auto">
+            <tr>
+                <th class="fs-5" scope="row"> First Name:</th>
+                <td> {{ patient.firstName }}</td>
+
+            </tr>
+            <tr>
+                <th class="fs-5" scope="row"> Last Name:</th>
+                <td> {{ patient.lastName }}</td>
+
+            </tr>
+            <tr>
+                <th class="fs-5" scope="row"> H.I.No.:</th>
+                <td> {{ patient.healthInsuranceNumber }}</td>
+
+            </tr>
+            <tr>
+                <th class="fs-5" scope="row"> Phone No.:</th>
+                <td> {{ patient.phoneNumber }}</td>
+
+            </tr>
+            <tr>
+                <th class="fs-5" scope="row"> Email:</th>
+                <td> {{ patient.email }}</td>
+
+            </tr>
+            <tr>
+                <th class="fs-5" scope="row"> Age:</th>
+                <td> {{ patient.age }}</td>
+
+            </tr>
+            <tr>
+                <th class="fs-5" scope="row"> Gender:</th>
+                <td> {{ patient.gender }}</td>
+
+            </tr>
+        </table>
+        <div class="history-wrapper flex-fill text-center">
+            <h3>History</h3>
+            <div class="history-text mx-auto">
+                <p>{{ patient.history }}</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores accusantium nostrum
+                    est maiores obcaecati pariatur, cum eius magnam, quis rerum repellendus aperiam doloremque
+                    debitis ea, sunt porro quia necessitatibus distinctio?
+                    Molestias dolores reprehenderit placeat ratione aut cumque tenetur debitis,
+                    voluptatibus, nostrum perspiciatis animi fuga? Ipsa neque repudiandae non facilis
+                    et doloremque accusantium atque, adipisci perspiciatis, minima corrupti animi odit
+                    pariatur!</p>
+            </div>
+        </div>
+    </div>
+    <button id="back" class="btn btn-primary" type="button" routerLink="/patients">Back</button>
+</div>

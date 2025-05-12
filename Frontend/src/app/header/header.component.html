@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <div *ngIf="isAuthenticated"> <button class="btn btn-sm mx-2 home-button" type="button"
+                    routerLink="/">Home</button>
+            </div>
+
+            <div class="dropdown" *ngIf="isAuthenticated">
+                <button id="btn-dropdown" class="btn dropdown-toggle btn-sm mx-2" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">Manage Patients
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" (click)="onRegister()" routerLink="/patients/register">Register a
+                            Patient</a></li>
+                    <li><a class="dropdown-item" (click)="onPatients()" routerLink="/patients">Patients
+                            List</a></li>
+                </ul>
+            </div>
+            <div class="dropdown" *ngIf="isAuthenticated">
+                <button id="btn-dropdown" class="btn dropdown-toggle btn-sm mx-2" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">Manage Appointments
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" routerLink="/appointments/makeAppointment">Make an
+                            Appointment</a></li>
+                    <li><a class=" dropdown-item" routerLink="/appointments">View/Edit
+                            Appointments</a></li>
+                </ul>
+            </div>
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item active mx-3" aria-current="page" *ngIf="isAuthenticated">
+                    <a class="btn nav-link btn-sm px-4 w-auto d-flex" (click)="onLogout()" routerLink="/">
+                        Log out
+                    </a>
+                </li>
+                <li class="nav-item active mx-3" aria-current="page" *ngIf="!isAuthenticated">
+                    <a class="btn nav-link btn-sm px-4 w-auto d-flex" routerLink="/login">
+                        Log in
+                    </a>
+                </li>
+                <li class="nav-item mx-3" *ngIf="!isAuthenticated">
+                    <a class="btn nav-link btn-sm px-4 w-auto d-flex" routerLink="/signUp">
+                        Sign up
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,46 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0.7rem 0 1rem 0;
+    padding: 2rem 0;
+    box-sizing: border-box;
+}
+
+.patient-form {
+    width: 100%;
+    max-width: 70%;
+    padding-left: 12%;
+    background-color: #E6E6FA;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+
+legend {
+    margin-left: 23%;
+}
+
+label,
+input {
+    width: 50%;
+}
+
+textarea {
+    resize: none;
+}
+
+.history {
+    min-width: 50%;
+    height: 90%;
+}
+
+input.ng-valid {
+    border: 1px solid red;
+}

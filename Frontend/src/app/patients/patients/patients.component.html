@@ -1,0 +1,42 @@
+<div class="spinner" *ngIf="isLoading">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="patients-view">
+  <div class="container-table" *ngIf="!isLoading">
+    <div class="table-responsive">
+      <table #myTable class="table table-striped table-hover align-middle caption-top text-center">
+        <caption class="fs-3 fw-normal text-center text-dark mb-4"> List of patients </caption>
+        <thead>
+          <tr id="table-header" class="bg-light">
+            <th class="fs-5" scope="col"> First Name </th>
+            <th class="fs-5" scope="col"> Last Name </th>
+            <th class="fs-5" scope="col"> H.I.No. </th>
+            <th class="fs-5" scope="col"> Phone No. </th>
+            <th class="fs-5" scope="col"> Email </th>
+            <th class="fs-5" scope="col"> Action </th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider" *ngIf="patients.length > 0">
+          <tr *ngFor="let patient of patients">
+            <td scope="col"> {{ patient.firstName }}</td>
+            <td scope="col"> {{ patient.lastName }}</td>
+            <td scope="col"> {{ patient.healthInsuranceNumber }}</td>
+            <td scope="col"> {{ patient.phoneNumber }}</td>
+            <td scope="col"> {{ patient.email }}</td>
+            <td scope="col">
+              <button class="btn table-buttons" (click)="onViewPatient(patient.id)" type="button">View</button>
+              <button class="btn table-buttons" (click)="onEdit(patient.id)" type="button">Edit</button>
+              <button class="btn table-buttons" (click)="onDelete(patient.id)" type="button">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button id="back" type="button" class="btn btn-primary my-1" routerLink="/"> Back </button>
+  </div>
+</div>
+
+<app-modals *ngIf="modalService.modalType() === 'confirm'" [message]="modalService.modalMessage"
+  [type]="modalService.modalType()" [deleteOk]="modalService.confirm"></app-modals>
+<app-modals *ngIf="modalService.modalType() === 'notify'" [type]="modalService.modalType()"
+  [message]="modalService.modalMessage"></app-modals>

@@ -1,0 +1,5 @@
+<app-appointment-form [appointment]="appointment" [formHeader]="'Create a new Appointment'"
+    (formSubmit)="onSubmit($event)"></app-appointment-form>
+
+<app-modals *ngIf="modalService.modalType() === 'notify'" [type]="modalService.modalType()"
+    [message]="modalService.modalMessage"></app-modals>

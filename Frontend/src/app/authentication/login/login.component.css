@@ -1,0 +1,28 @@
+form {
+    border-radius: 10px;
+    background-color: rgb(239, 255, 255);
+    box-shadow: 2px 2px 7px #1b1b70;
+}
+
+.form-content {
+    margin-left: 25%;
+}
+
+legend {
+    margin-left: 15%
+}
+
+.horizontal-theme {
+    margin-top: 5%;
+    height: 200px;
+    background-color: rgb(6, 165, 6);
+}
+
+#log-in label,
+input {
+    width: 50%;
+}
+
+.spinner {
+    text-align: center;
+}

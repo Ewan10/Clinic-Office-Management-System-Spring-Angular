@@ -1,0 +1,19 @@
+form {
+    background-color: rgb(239, 255, 255);
+    border-radius: 10px;
+    box-shadow: 2px 2px 7px #1b1b70;
+}
+
+legend {
+    margin-left: 35%;
+}
+
+.horizontal-theme {
+    margin-top: 5%;
+    height: 200px;
+    background-color: rgb(6, 165, 6);
+}
+
+.spinner {
+    text-align: center;
+}

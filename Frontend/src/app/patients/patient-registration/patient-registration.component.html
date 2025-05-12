@@ -1,0 +1,5 @@
+<app-patient-form [patient]="patient" [formHeader]="'Register a new Patient'"
+    (formSubmit)="onRegister($event)"></app-patient-form>
+
+<app-modals *ngIf="modalService.modalType() === 'notify'" [type]="modalService.modalType()"
+    [message]="modalService.modalMessage"></app-modals>

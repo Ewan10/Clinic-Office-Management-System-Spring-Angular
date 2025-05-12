@@ -1,0 +1,72 @@
+<div class="form-wrapper d-flex justify-content-center">
+    <form class="row patient-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <legend class="fs-3 pt-3 fw-normal">{{formHeader}}</legend>
+
+        <div class="col">
+            <div>
+                <label class="form-label fs-5" for="fisrtName">First Name</label>
+                <input class="form-control" type="text" placeholder="First Name" [ngModel]="patient.firstName"
+                    name="firstName" required #firstName="ngModel" [pattern]="'^[a-zA-Z]$+'">
+                <span class="help-block" *ngIf="!firstName.valid && firstName.touched">
+                    Please enter the first name</span>
+            </div>
+
+            <div class="my-4">
+                <label class="form-label fs-5" for="lastName">Last Name</label>
+                <input class="form-control" type="text" Last Name [ngModel]="patient.lastName" name="lastName" required
+                    #lastName="ngModel" [pattern]="'^[a-zA-Z]$+'">
+                <span class="help-block" *ngIf="!lastName.valid && lastName.touched">
+                    Please enter the last name</span>
+            </div>
+
+            <div class="my-4">
+                <label class="form-label fs-5" for="phoneNumber">Phone Number</label>
+                <input class="form-control" type="text" [ngModel]="patient.phoneNumber" name="phoneNumber" required
+                    #phoneNumber="ngModel" [pattern]="'^\\+?[0-9\\s-]{7,15}$'">
+                <span class="help-block" *ngIf="!phoneNumber.valid && phoneNumber.touched">
+                    Please enter a phone number</span>
+            </div>
+
+            <div class="my-4">
+                <label class="form-label fs-5" for="email">Email</label>
+                <input class="form-control" type="email" [ngModel]="patient.email" name="email" required email
+                    #email="ngModel">
+                <span class="help-block" *ngIf="!email.valid && email.touched">
+                    Please enter a valid email address</span>
+            </div>
+        </div>
+
+        <div class="col">
+            <div>
+                <label class="form-label fs-5" for="HIN">H.I.Number </label>
+                <input class="form-control" type="number" [ngModel]="patient.healthInsuranceNumber"
+                    name="healthInsuranceNumber" required #HIN="ngModel" [pattern]="'^[1-9]{1}[0-9]{9}'">
+                <small>(10-digits)</small>
+                <span class="help-block" *ngIf="!HIN.valid && HIN.touched">
+                    Please enter the Health Insurance Number </span>
+            </div>
+
+            <div class="my-4">
+                <label class="form-label fs-5" for="age">Age</label>
+                <input class="form-control" type="number" [ngModel]="patient.age" name="age" required #age="ngModel"
+                    [pattern]="'[0-9]{1,3}'">
+                <span class="help-block" *ngIf="!age.valid && age.touched">
+                    Please enter the age</span>
+            </div>
+
+            <div class="my-4">
+                <label class="form-label fs-5" for="">Gender</label>
+                <input class="form-control" type="text" [ngModel]="patient.gender" name="gender" required>
+            </div>
+
+        </div>
+        <div class="my-2 history">
+            <label class="form-label fs-5" for="history">History</label>
+            <textarea rows="10" class="form-control w-75" [ngModel]="patient.history" name="history"></textarea>
+            <div class="form-buttons">
+                <button class="btn btn-info w-25 ms-2 my-3" type="button" routerLink="/patients">Back</button>
+                <button type="sumbmit" class="btn btn-primary w-25 ms-2 my-3" [disabled]="!f.valid">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

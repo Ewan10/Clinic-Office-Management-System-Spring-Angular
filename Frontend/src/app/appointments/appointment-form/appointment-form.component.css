@@ -1,0 +1,44 @@
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    margin: 0.2rem 0 0.7rem 0;
+    padding: 2rem 0;
+    box-sizing: border-box;
+}
+
+.appointment-form {
+    width: 100%;
+    max-width: 60%;
+    padding-left: 12%;
+    background-color: #E6E6FA;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+
+legend {
+    margin-top: 3%;
+    margin-left: 16%;
+}
+
+label,
+input,
+select {
+    width: 30%;
+}
+
+span {
+    margin-left: 32%;
+}
+
+select.ng-valid,
+select.ng-touched,
+input.ng-valid,
+input.ng-touched {
+    border: 1px solid red;
+}
+
+.form-buttons {
+    margin: 4% 1%;
+}

@@ -1,0 +1,44 @@
+.patient-view {
+    min-height: 100vh;
+    background: linear-gradient(to right,
+            rgb(242, 244, 252),
+            rgb(224, 229, 250), rgb(214, 216, 250));
+    margin: 0;
+}
+
+.patient-table {
+    margin-top: 2%;
+}
+
+.patient-table th,
+.patient-table td {
+    padding: 0.7rem 0;
+}
+
+table td {
+    font-size: larger;
+}
+
+.patient-table th {
+    padding-right: 4rem;
+}
+
+h3 {
+    margin-top: 2%;
+}
+
+.history-wrapper {
+    margin-top: 4%;
+    margin-left: 8%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.history-text {
+    margin-top: 2%;
+}
+
+#back {
+    width: fit-content;
+    margin-left: 12%;
+}

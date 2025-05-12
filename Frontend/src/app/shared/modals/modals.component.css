@@ -1,0 +1,61 @@
+#confirmModal .modal-body {
+    min-height: 90px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #edeefd;
+    border-radius: 12px;
+}
+
+#confirmModal .modal-footer {
+    background-color: #edeefd;
+}
+
+.confirm-modal .modal-dialog {
+    position: fixed;
+    top: 15vh;
+    left: 35%;
+    margin: 0;
+    z-index: 10;
+}
+
+#confirm-modal .modal-dialog .modal.fade {
+    transform: translate(-50%, -70px);
+    transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    opacity: 0;
+}
+
+#confirm-modal .modal.show .modal-dialog {
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+#notifyModal .modal-body {
+    min-height: 90px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #edeefd;
+    border-radius: 12px;
+}
+
+#notifyModal .modal-dialog {
+    position: fixed;
+    bottom: 30px;
+    right: 100px;
+    margin: 0;
+    z-index: 10;
+}
+
+.notification-modal .modal.fade .modal-dialog {
+    transition: transform 0.7s ease, opacity 0.5s ease;
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+.notification-modal .modal.show .modal-dialog {
+    transform: translateY(0);
+    opacity: 1;
+}

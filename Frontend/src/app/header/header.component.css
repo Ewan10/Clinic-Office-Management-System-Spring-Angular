@@ -1,0 +1,71 @@
+.navbar {
+
+    background-color: rgb(127, 255, 212);
+}
+
+.nav-item {
+    background-color: rgb(109, 223, 185);
+    border-radius: 10%;
+    display: inline-block !important;
+    /* Prevents full width */
+    width: auto !important;
+}
+
+.dropdown-menu {
+    background-color: rgb(109, 223, 185);
+}
+
+.dropdown-item {
+    background-color: rgb(109, 223, 185);
+}
+
+.navbar-nav {
+    width: auto !important;
+    /* Prevents `<ul>` from stretching */
+    justify-content: flex-end;
+    /* Align items properly */
+}
+
+
+.nav-link.btn {
+    display: inline-block !important;
+    /* Prevents full width */
+    width: auto !important;
+    /* Makes button size match text */
+}
+
+.dropdown-item:hover {
+    background-color: rgb(121, 245, 203);
+}
+
+#btn-dropdown,
+.home-button {
+    background-color: rgb(109, 223, 185);
+}
+
+.nav-item :hover {
+    background-color: rgb(114, 232, 193);
+}
+
+.dropdown-item:active,
+.dropdown-item:focus {
+    color: rgb(0, 0, 0) !important;
+}
+
+.home-button:active,
+.home-button:focus {
+    background-color: rgb(109, 223, 185) !important;
+}
+
+@media (max-width: 990px) {
+    .nav-item {
+        margin-top: 1%;
+        width: 15% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-item {
+        min-width: 120px;
+    }
+}

@@ -1,0 +1,61 @@
+.patients-view {
+    min-height: 100vh;
+    background: linear-gradient(to right,
+            rgb(242, 244, 252),
+            rgb(224, 229, 250), rgb(214, 216, 250));
+    margin: 0;
+}
+
+caption {
+    font-weight: 600 !important;
+}
+
+.container-table {
+    position: relative;
+    left: 10%;
+    flex-direction: column;
+    padding-bottom: 10%;
+}
+
+table {
+    width: 80%;
+    box-shadow: 0 3px 10px rgb(10, 80, 123);
+    border-radius: 10px;
+}
+
+#back {
+    width: fit-content;
+}
+
+.spinner {
+    text-align: center;
+}
+
+.table-buttons {
+    margin-right: 2%;
+    background-color: rgb(200, 236, 249);
+}
+
+.table-buttons:hover {
+    background-color: rgb(153, 222, 248);
+}
+
+table thead tr th:first-child {
+    border-top-left-radius: 10px;
+}
+
+table thead tr th:last-child {
+    border-top-right-radius: 10px;
+}
+
+table th {
+    background-color: rgb(180, 231, 250);
+}
+
+@media (max-width: 1140px) {
+    .table-buttons {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
