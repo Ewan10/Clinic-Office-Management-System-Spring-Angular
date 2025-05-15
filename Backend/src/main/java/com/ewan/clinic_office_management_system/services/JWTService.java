@@ -7,6 +7,9 @@ import java.util.function.Function;
 import javax.crypto.SecretKey;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.ewan.clinic_office_management_system.security.JwtConfig;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,9 +19,14 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JWTService {
 
-    private String SECRET_KEY = "Tq+M2FpXKsbPoLtuMbG6vEl+oFZrKd0v3o2mP6s43Q8=";
+    private final JwtConfig jwtConfig;
 
-    public JWTService() {
+    public JWTService(JwtConfig jwtConfig) {
+        this.jwtConfig = jwtConfig;
+    }
+
+    public String getSecretKey() {
+        return jwtConfig.getSecret();
     }
 
     @SuppressWarnings("deprecation")
@@ -34,7 +42,7 @@ public class JWTService {
     }
 
     private SecretKey getKey() {
-        byte[] secretKey = Decoders.BASE64.decode(this.SECRET_KEY);
+        byte[] secretKey = Decoders.BASE64.decode(this.getSecretKey());
         return Keys.hmacShaKeyFor(secretKey);
     }
 
