@@ -53,6 +53,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(12);
     }
 
+    @SuppressWarnings("deprecation")
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();

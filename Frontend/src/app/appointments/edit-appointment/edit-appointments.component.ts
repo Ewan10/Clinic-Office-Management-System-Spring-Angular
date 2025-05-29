@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Appointment, AppointmentsService } from '../../services/appointments.service';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 import { ModalService } from 'src/app/services/modal.service';
 import { AppointmentFormComponent } from '../appointment-form/appointment-form.component';
@@ -15,9 +15,8 @@ import { CommonModule } from '@angular/common';
   imports: [AppointmentFormComponent, ModalsComponent, CommonModule]
 })
 export class EditAppointmentsComponent implements OnInit {
-  constructor(private appointmentsService: AppointmentsService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+  private appointmentsService = inject(AppointmentsService);
+  private route = inject(ActivatedRoute);
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));

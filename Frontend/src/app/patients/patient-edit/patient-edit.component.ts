@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Patient, PatientsService } from 'src/app/services/patients.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { PatientFormComponent } from '../patient-form/patient-form.component';
@@ -15,13 +15,9 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, PatientFormComponent, ModalsComponent]
 })
 export class PatientEditComponent {
-
-  constructor(
-    private patientsService: PatientsService,
-    public modalService: ModalService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) { }
+  private patientsService = inject(PatientsService);
+  private route = inject(ActivatedRoute);
+  modalService = inject(ModalService);
 
   patient: Patient;
   modalType = signal<string | null>('');
@@ -53,5 +49,4 @@ export class PatientEditComponent {
             '/patients');
         });
   }
-
 }

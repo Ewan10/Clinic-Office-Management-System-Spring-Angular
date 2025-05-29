@@ -3,7 +3,7 @@
     height: fit-content;
     background-color: rgb(6, 165, 6);
     background: linear-gradient(to left, rgb(53, 180, 53), rgb(16, 160, 16), rgb(0, 128, 0));
-    box-shadow: 2px 2px #147c20;
+    box-shadow: 2px 2px 2px 2px #10661a;
     border-radius: 1%;
 }
 
@@ -20,12 +20,16 @@
     color: aliceblue;
     position: relative;
     margin-left: 13%;
-    padding-bottom: 2%;
+    padding-bottom: 1%;
     margin-right: 10%;
     align-items: center;
     font-size: 25px;
     font-weight: 400;
     text-shadow: 1px 2px #117d1e;
+}
+
+li {
+    margin: 5px 0 10px 5px
 }
 
 .patients-title {

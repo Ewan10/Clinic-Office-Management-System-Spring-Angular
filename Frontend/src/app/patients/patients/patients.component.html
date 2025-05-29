@@ -10,9 +10,9 @@
           <tr id="table-header" class="bg-light">
             <th class="fs-5" scope="col"> First Name </th>
             <th class="fs-5" scope="col"> Last Name </th>
-            <th class="fs-5" scope="col"> H.I.No. </th>
-            <th class="fs-5" scope="col"> Phone No. </th>
-            <th class="fs-5" scope="col"> Email </th>
+            <th class="fs-5 hide-on-small" scope="col"> H.I.No. </th>
+            <th class="fs-5 hide-on-small" scope="col"> Phone No. </th>
+            <th class="fs-5 hide-on-small" scope="col"> Email </th>
             <th class="fs-5" scope="col"> Action </th>
           </tr>
         </thead>
@@ -20,9 +20,9 @@
           <tr *ngFor="let patient of patients">
             <td scope="col"> {{ patient.firstName }}</td>
             <td scope="col"> {{ patient.lastName }}</td>
-            <td scope="col"> {{ patient.healthInsuranceNumber }}</td>
-            <td scope="col"> {{ patient.phoneNumber }}</td>
-            <td scope="col"> {{ patient.email }}</td>
+            <td class="hide-on-small" scope="col"> {{ patient.healthInsuranceNumber }}</td>
+            <td class="hide-on-small" scope="col"> {{ patient.phoneNumber }}</td>
+            <td class="hide-on-small" scope="col"> {{ patient.email }}</td>
             <td scope="col">
               <button class="btn table-buttons" (click)="onViewPatient(patient.id)" type="button">View</button>
               <button class="btn table-buttons" (click)="onEdit(patient.id)" type="button">Edit</button>

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, inject, OnInit, Optional, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output, ViewChild } from '@angular/core';
 import { AppointmentsService } from 'src/app/services/appointments.service';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import { format } from 'date-fns';
 
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-calendar',
@@ -19,9 +20,7 @@ import { format } from 'date-fns';
 
 })
 export class CalendarComponent implements OnInit {
-  constructor(@Optional() public dialogRef: MatDialogRef<CalendarComponent>) { }
   private appointmentsService = inject(AppointmentsService);
-  private dialog = inject(MatDialog);
   @Output() slotSelected = new EventEmitter<{ date: string; time: string }>();
   @ViewChild(FullCalendarComponent) calendarComponent: FullCalendarComponent;
 
@@ -44,33 +43,58 @@ export class CalendarComponent implements OnInit {
     initialView: 'timeGridWeek',
     events: this.calendarEvents,
     headerToolbar: this.headerToolbar,
+    slotLabelInterval: '00:20:00',
     slotDuration: '00:20:00',
     slotMinTime: '09:00:00',
     slotMaxTime: '21:00:00',
+    displayEventTime: false,
+    slotLabelFormat: {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    },
     allDaySlot: false,
     dateClick: (info) => {
       this.handleDateClick(info);
+    },
+    eventDidMount: (info) => {
+      const tooltip = info.event.extendedProps.tooltip;
+      if (tooltip) {
+        info.el.setAttribute('data-bs-toggle', tooltip);
+        info.el.setAttribute('data-bs-placement', 'top');
+        info.el.setAttribute('title', tooltip);
+        new bootstrap.Tooltip(info.el)
+
+      }
     }
   };
 
   handleDateClick(arg: any) {
-    console.log('handleDateClick: ', arg);
     const selected = {
       date: arg.dateStr,
       time: format(arg.date, 'HH:mm')
     };
-    console.log('Selected date and time:', selected);
+
+    this.slotSelected.emit(selected);
 
     const start = new Date(selected.date);
     const end = new Date(start.getTime() + 20 * 60000);
 
+    const timeStart = format(start, 'HH:mm');
+    const timeEnd = format(end, 'HH:mm');
+
+    this.calendarEvents = this.calendarEvents.filter(event => event.extendedProps?.isPlaceholder !== true);
+
+
     this.calendarEvents = [
       ...this.calendarEvents,
       {
-        title: ``,
+        title: `${timeStart}: ${timeEnd}`,
         start: start.toISOString(),
         end: end.toISOString(),
+        classNames: ['appointment-event'],
         extendedProps: {
+          isPlaceholder: true,
           time: selected.time
         }
       }
@@ -81,11 +105,6 @@ export class CalendarComponent implements OnInit {
       events: [...this.calendarEvents]
     };
 
-    if (this.dialogRef) {
-      this.dialogRef.close(selected);
-    } else {
-      this.slotSelected.emit(selected);
-    }
   }
 
   fetchAppointments() {
@@ -101,9 +120,11 @@ export class CalendarComponent implements OnInit {
             title: `Room ${appointment.room}`,
             start: start.toISOString(),
             end: end.toISOString(),
+            classNames: ['appointment-event'],
             extendedProps: {
               roomNumber: appointment.roomNumber,
-              appointmentId: appointment.id
+              appointmentId: appointment.id,
+              tooltip: `Patient: ${appointment.patientFirstName} ${appointment.patientLastName}, Doctor: ${appointment.doctor}, Room: ${appointment.room}`
             }
           };
         });

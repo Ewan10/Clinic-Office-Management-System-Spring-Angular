@@ -1,82 +1,66 @@
-<div class="d-flex align-items-center gap-3">
-    <div style="width: 80%; min-height: 300px; margin: 3% 10%; background-color: rgb(241, 247, 253);">
-        <app-calendar (slotSelected)="onSlotSelected($event)"></app-calendar>
+<div class="d-flex justify-content-between align-items-start flex-wrap">
+    <div class="form-wrapper">
+        <form class="row appointment-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <legend>{{formHeader}}</legend>
+            <div class="col">
+                <div class="form-row mt-3 d-flex align-items-center gap-3">
+                    <label class="form-label fs-5" for="patientFirstName">Patient's First Name</label>
+                    <input class="form-control" type="text" [ngModel]="appointment.patientFirstName"
+                        name="patientFirstName" required #firstName="ngModel" pattern="^[a-zA-Z\s\-]+$">
+                </div>
+                <span class="help-block" *ngIf="!firstName.valid && firstName.touched">
+                    Please enter the patient' s first name</span>
+
+                <div class="form-row mt-3 d-flex align-items-center gap-3">
+                    <label class="form-label fs-5" for="patientLastName">Patient's Last Name</label>
+                    <input class="form-control" type="text" [ngModel]="appointment.patientLastName"
+                        name="patientLastName" required #lastName="ngModel" pattern="^[a-zA-Z\s\-]+$">
+                </div>
+                <span class="help-block" *ngIf="!lastName.valid && lastName.touched">
+                    Please enter the patient' s last name</span>
+                <div class="form-row mt-3 d-flex align-items-center gap-3">
+                    <label class="form-label fs-5" for="doctor">Select a doctor</label>
+                    <select class="form-select" name="doctor" aria-label="Default select example"
+                        [ngModel]="appointment.doctor" required #doctor="ngModel">
+                        <option value="Dr Pereira">Dr Pereira</option>
+                        <option value="Dr Rodrigues">Dr Rodrigues</option>
+                        <option value="Dr Altogarcia">Dr Altogarcia</option>
+                        <option value="Dr Oliveira">Dr Oliveira</option>
+                        <option value="Dr Asuncion">Dr Asuncion</option>
+                        <option value="Dr Marquis">Dr Marquis</option>
+                        <option value="Dr Curacao">Dr Curacao</option>
+                        <option value="Dr SanMiguel">Dr SanMiguel</option>
+                        <option value="Dr Poaquis">Dr Poaquis</option>
+                    </select>
+                </div>
+                <span class="help-block" *ngIf="!doctor.valid && doctor.touched">
+                    Please enter a doctor</span>
+                <div class="form-row mt-3 d-flex align-items-center gap-3">
+                    <label class="form-label fs-5" for="room">Room<small> (3 digits)</small></label>
+                    <input class="form-control" type="number" Last Name [ngModel]="appointment.room" name="room"
+                        required #room="ngModel" [pattern]="'[0-9]{3}'">
+                </div>
+                <span class="help-block" *ngIf="!room.valid && room.touched">
+                    Please enter the room number</span>
+
+                <div class="mt-2 d-flex align-items-center gap-3">
+                    <label class="form-label fs-5">Date</label>
+                    <span class="info">{{appointment.date}}</span>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <label class="form-label fs-5">Time</label>
+                    <span class="info">{{appointment.time}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <button class="btn btn-info w-25 form-buttons" type="button" routerLink="/appointments">Back</button>
+                <button class="btn btn-primary w-25 form-buttons" type="sumbmit" [disabled]="!f.valid">Submit</button>
+            </div>
+        </form>
+        <div class="d-flex align-items-center">
+            <div class="calendar-wrapper">
+                <app-calendar (slotSelected)="onSlotSelected($event)"></app-calendar>
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="form-wrapper d-flex justify-content-center">
-    <form class="row appointment-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <legend>{{formHeader}}</legend>
-        <div class="col">
-            <div class="mt-4 d-flex align-items-center gap-3">
-                <label class="form-label fs-5" for="date">Date</label>
-                <input class="form-control" type="date" placeholder="dd/mm/yyyy" [ngModel]="appointment.date"
-                    (ngModelChange)="onDateChange($event)" name="date" required #date="ngModel">
-            </div>
-            <span class="help-block" *ngIf="!date.valid && date.touched">
-                Please enter the date</span>
-            <div class="d-flex align-items-center gap-3">
-                <!-- <button class="btn btn-primary w-25 form-buttons" mat-raised-button (click)="openCalendarDialog()">Pick
-                    from calendar</button> -->
-
-                <!-- <app-calendar (slotSelected)="onSlotSelected($event)"></app-calendar> -->
-
-            </div>
-            <div class="mt-4 d-flex align-items-center gap-3">
-                <label class="form-label fs-5" for="time">Time</label>
-                <input class="form-control" type="time" placeholder="hh:mm" [ngModel]="appointment.time"
-                    (ngModelChange)="onTimeChange($event)" name="time" required pattern="[0-2][0-9]:[0-5][0-9]"
-                    #time="ngModel">
-            </div>
-            <span class="help-block" *ngIf="!time.valid && time.touched">
-                Please enter the time</span>
-
-            <div class="mt-4 d-flex align-items-center gap-3">
-                <label class="form-label fs-5" for="room">Room<small> (3 digits)</small></label>
-                <input class="form-control" type="number" Last Name [ngModel]="appointment.room" name="room" required
-                    #room="ngModel" [pattern]="'[0-9]{3}'">
-            </div>
-            <span class="help-block" *ngIf="!room.valid && room.touched">
-                Please enter the room number</span>
-
-            <div class="mt-4 d-flex align-items-center gap-3">
-                <label class="form-label fs-5" for="doctor">Select a doctor</label>
-                <select class="form-select" name="doctor" aria-label="Default select example"
-                    [ngModel]="appointment.doctor" required #doctor="ngModel">
-                    <option value="Dr Pereira">Dr Pereira</option>
-                    <option value="Dr Rodrigues">Dr Rodrigues</option>
-                    <option value="Dr Altogarcia">Dr Altogarcia</option>
-                    <option value="Dr Oliveira">Dr Oliveira</option>
-                    <option value="Dr Asuncion">Dr Asuncion</option>
-                    <option value="Dr Marquis">Dr Marquis</option>
-                    <option value="Dr Curacao">Dr Curacao</option>
-                    <option value="Dr SanMiguel">Dr SanMiguel</option>
-                    <option value="Dr Poaquis">Dr Poaquis</option>
-                </select>
-            </div>
-            <span class="help-block" *ngIf="!doctor.valid && doctor.touched">
-                Please enter a doctor</span>
-
-            <div class="mt-4 d-flex align-items-center gap-3">
-                <label class="form-label fs-5" for="patientFirstName">Patient's First Name</label>
-                <input class="form-control" type="text" [ngModel]="appointment.patientFirstName" name="patientFirstName"
-                    required #firstName="ngModel" pattern="^[a-zA-Z\s\-]+$">
-            </div>
-            <span class="help-block" *ngIf="!firstName.valid && firstName.touched">
-                Please enter the patient' s first name</span>
-
-            <div class="mt-4 d-flex align-items-center gap-3">
-                <label class="form-label fs-5" for="patientLastName">Patient's Last Name</label>
-                <input class="form-control" type="text" [ngModel]="appointment.patientLastName" name="patientLastName"
-                    required #lastName="ngModel" pattern="^[a-zA-Z\s\-]+$">
-            </div>
-            <span class="help-block" *ngIf="!lastName.valid && lastName.touched">
-                Please enter the patient' s last name</span>
-        </div>
-
-        <div class="row">
-            <button class="btn btn-info w-25 form-buttons" type="button" routerLink="/appointments">Back</button>
-            <button class="btn btn-primary w-25 form-buttons" type="sumbmit" [disabled]="!f.valid">Submit</button>
-        </div>
-    </form>
 </div>

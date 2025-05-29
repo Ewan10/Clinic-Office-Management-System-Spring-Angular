@@ -44,3 +44,13 @@ textarea {
 input.ng-valid {
     border: 1px solid red;
 }
+
+@media (max-width: 681px) {
+    legend {
+        margin-left: auto;
+    }
+
+    .btn-primary {
+        width: auto !important;
+    }
+}

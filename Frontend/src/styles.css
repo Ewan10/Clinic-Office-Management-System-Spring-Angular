@@ -6,5 +6,29 @@ body {
     height: 100%;
 
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.fc-button {
+    background-color: #0f5bff !important;
+}
+
+.fc-toolbar-title {
+    color: #2b1b76;
+    margin: 0 12px;
+}
+
+.fc-event.appointment-event {
+    background-color: #0f5bff !important;
+    /* Blue */
+    border: none;
+    color: white;
+}

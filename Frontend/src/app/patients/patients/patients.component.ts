@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Patient, PatientsService } from 'src/app/services/patients.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ModalService } from 'src/app/services/modal.service';
@@ -17,11 +17,9 @@ declare var bootstrap: any;
 })
 export class PatientsComponent implements OnInit {
   message: string;
-  constructor(private patientsService: PatientsService,
-    public modalService: ModalService,
-    private route: ActivatedRoute,
-    private router: Router) {
-  }
+  private patientsService = inject(PatientsService);
+  private router = inject(Router);
+  modalService = inject(ModalService);
 
   patient: Patient;
   patients: Patient[];
@@ -41,7 +39,6 @@ export class PatientsComponent implements OnInit {
       },
         (error) => {
           this.errorMessage = error?.message;
-          console.log(error)
         }
       )
   }

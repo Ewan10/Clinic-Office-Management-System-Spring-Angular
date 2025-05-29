@@ -13,8 +13,8 @@ import { ModalsComponent } from 'src/app/shared/modals/modals.component';
   imports: [CommonModule, RouterModule, ModalsComponent]
 })
 export class AppointmentsViewComponent implements OnInit {
-  constructor(private appointmentsService: AppointmentsService,
-    private router: Router) { }
+  private appointmentsService = inject(AppointmentsService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.onViewAll();

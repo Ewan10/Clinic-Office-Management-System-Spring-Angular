@@ -1,22 +1,20 @@
 .navbar {
-
-    background-color: rgb(127, 255, 212);
+    background-color: rgb(160, 213, 253);
 }
 
 .nav-item {
-    background-color: rgb(109, 223, 185);
+    background-color: rgb(111, 184, 240);
     border-radius: 10%;
     display: inline-block !important;
-    /* Prevents full width */
     width: auto !important;
 }
 
 .dropdown-menu {
-    background-color: rgb(109, 223, 185);
+    background-color: rgb(111, 184, 240);
 }
 
 .dropdown-item {
-    background-color: rgb(109, 223, 185);
+    background-color: rgb(111, 184, 240);
 }
 
 .navbar-nav {
@@ -26,7 +24,6 @@
     /* Align items properly */
 }
 
-
 .nav-link.btn {
     display: inline-block !important;
     /* Prevents full width */
@@ -35,16 +32,16 @@
 }
 
 .dropdown-item:hover {
-    background-color: rgb(121, 245, 203);
+    background-color: rgb(59, 162, 241);
 }
 
 #btn-dropdown,
 .home-button {
-    background-color: rgb(109, 223, 185);
+    background-color: rgb(111, 184, 240);
 }
 
 .nav-item :hover {
-    background-color: rgb(114, 232, 193);
+    background-color: rgb(89, 177, 245);
 }
 
 .dropdown-item:active,
@@ -54,13 +51,21 @@
 
 .home-button:active,
 .home-button:focus {
-    background-color: rgb(109, 223, 185) !important;
+    background-color: rgb(89, 177, 245) !important;
 }
 
 @media (max-width: 990px) {
     .nav-item {
         margin-top: 1%;
         width: 15% !important;
+    }
+}
+
+@media (max-width: 990px) {
+
+    #btn-dropdown,
+    .home-button {
+        margin-top: 1%;
     }
 }
 

@@ -1,17 +1,17 @@
 .form-wrapper {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
-    margin: 0.2rem 0 0.7rem 0;
-    padding: 2rem 0;
+    min-height: 60vh;
+    padding: 1rem 0;
     box-sizing: border-box;
 }
 
 .appointment-form {
     width: 100%;
-    max-width: 60%;
-    padding-left: 12%;
+    max-width: 50%;
+    padding-left: 8%;
     background-color: #E6E6FA;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
     border-radius: 10px;
@@ -28,7 +28,7 @@ select {
     width: 30%;
 }
 
-span {
+span:not(.info) {
     margin-left: 32%;
 }
 
@@ -41,4 +41,73 @@ input.ng-touched {
 
 .form-buttons {
     margin: 4% 1%;
+}
+
+.calendar-wrapper {
+    flex-grow: 1;
+    width: 100vh;
+    min-height: 300px;
+    margin: 0% 0% 2% 5%;
+    background-color: rgb(241, 247, 253);
+}
+
+@media (max-width: 1153px) {
+    .appointment-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    legend {
+        margin-left: 0;
+    }
+
+    app-appointment-form,
+    app-calendar {
+        width: 100%;
+        max-width: 600px;
+        /* Optional: prevent full width on small screens */
+    }
+
+    .calendar-wrapper {
+        margin-top: 2rem;
+        width: 100%;
+    }
+
+    input,
+    select {
+        width: 9rem;
+    }
+
+    button {
+        width: auto !important;
+    }
+}
+
+@media (max-width: 635px) {
+    .form-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .form-row {
+        width: 100%;
+    }
+
+    .form-label {
+        align-items: start;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .form-control {
+        width: 9rem;
+    }
+
+    .info {
+        width: 100%;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+
 }

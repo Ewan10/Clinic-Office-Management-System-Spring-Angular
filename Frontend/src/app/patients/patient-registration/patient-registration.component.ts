@@ -1,6 +1,5 @@
 import { HttpResponse } from "@angular/common/http";
-import { Component, OnInit, signal } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, inject } from "@angular/core";
 import { ModalService } from "src/app/services/modal.service";
 import { Patient, PatientsService } from "src/app/services/patients.service";
 import { ModalsComponent } from "src/app/shared/modals/modals.component";
@@ -15,10 +14,8 @@ import { NgForm } from "@angular/forms";
     imports: [ModalsComponent, PatientFormComponent]
 })
 export class PatientRegistrationComponent {
-    constructor(private patientsService: PatientsService,
-        public modalService: ModalService,
-        private router: Router) { }
-
+    private patientsService = inject(PatientsService);
+    modalService = inject(ModalService);
 
     form: NgForm;
     patient: Patient = {
@@ -46,8 +43,6 @@ export class PatientRegistrationComponent {
                 this.modalService.onNotify(error.message,
                     '/patients'
                 );
-
             })
-
     };
 }

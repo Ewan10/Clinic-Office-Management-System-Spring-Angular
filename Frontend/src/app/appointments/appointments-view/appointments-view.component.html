@@ -9,10 +9,10 @@
                 <thead>
                     <tr class="bg-light">
                         <th class="fs-5" scope="col"> Date </th>
-                        <th class="fs-5" scope="col"> Time </th>
-                        <th class="fs-5" scope="col"> Room </th>
+                        <th class="fs-5 hide-on-small" scope="col"> Time </th>
+                        <th class="fs-5 hide-on-small" scope="col"> Room </th>
                         <th class="fs-5" scope="col"> Doctor </th>
-                        <th class="fs-5" scope="col"> First Name </th>
+                        <th class="fs-5 hide-on-small" scope="col"> First Name </th>
                         <th class="fs-5" scope="col">Last Name</th>
                         <th class="fs-5" scope="col"> Action </th>
                     </tr>
@@ -22,10 +22,10 @@
                     @for (appointment of appointments; track $index) {
                     <tr> <!-- *ngFor="let appointment of appointments" -->
                         <td scope="col"> {{ appointment.date }}</td>
-                        <td scope="col"> {{ appointment.time }}</td>
-                        <td scope="col"> {{ appointment.room }}</td>
+                        <td class="hide-on-small" scope="col"> {{ appointment.time }}</td>
+                        <td class="hide-on-small" scope="col"> {{ appointment.room }}</td>
                         <td scope="col"> {{ appointment.doctor }}</td>
-                        <td scope="col"> {{ appointment.patientFirstName }}</td>
+                        <td class="hide-on-small" scope="col"> {{ appointment.patientFirstName }}</td>
                         <td scope="col"> {{ appointment.patientLastName }}</td>
                         <td scope="col"> <button class="btn  table-buttons" type="button"
                                 (click)="onEdit(appointment.id)">Edit</button>

@@ -54,3 +54,9 @@ table th {
         margin-bottom: 0.5rem;
     }
 }
+
+@media (max-width: 681px) {
+    .hide-on-small {
+        display: none;
+    }
+}

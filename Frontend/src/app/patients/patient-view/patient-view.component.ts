@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Patient, PatientsService } from 'src/app/services/patients.service';
 
@@ -13,10 +13,8 @@ import { Patient, PatientsService } from 'src/app/services/patients.service';
 export class PatientViewComponent implements OnInit {
 
   patient: Patient | null = null;
-  constructor(
-    private patientsService: PatientsService,
-    private router: Router
-  ) { }
+  private patientsService = inject(PatientsService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.patient = this.patientsService.getPatient();
