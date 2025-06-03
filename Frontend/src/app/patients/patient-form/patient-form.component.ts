@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { Patient } from 'src/app/services/patients.service';
+import { PatientDetailed } from 'src/app/models';
 
 @Component({
   selector: 'app-patient-form',
@@ -12,15 +12,15 @@ import { Patient } from 'src/app/services/patients.service';
 })
 export class PatientFormComponent {
 
-  @Input() patient: Patient;
+  @Input() patient: PatientDetailed;
   @Input() formHeader: string;
-  @Output() formSubmit = new EventEmitter<Patient>();
+  @Output() formSubmit = new EventEmitter<PatientDetailed>();
 
   onSubmit(form: NgForm) {
     this.formSubmit.emit(this.buildPatientFromForm(form));
   }
 
-  private buildPatientFromForm(form: NgForm): Patient {
+  private buildPatientFromForm(form: NgForm): PatientDetailed {
     const data = form.value;
     const patient: any = { ...data };
 

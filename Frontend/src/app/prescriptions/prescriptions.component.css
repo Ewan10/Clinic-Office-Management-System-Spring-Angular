@@ -1,0 +1,62 @@
+.form-wrapper {
+    margin-top: 2%;
+    display: flex;
+    align-items: flex-start;
+    gap: 20rem;
+}
+
+form {
+    /* margin-left: 70%; */
+    margin-bottom: 1%;
+    width: 100%;
+    max-width: 700px;
+    padding: 0.7rem 1rem;
+    border: 3px solid #1a1abc;
+    border-radius: 5px;
+    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.4);
+}
+
+.placeholder {
+    display: inline-block;
+    width: 80px;
+    color: rgb(223, 229, 250);
+}
+
+thead th {
+    padding-bottom: 0.8rem;
+}
+
+input {
+    min-width: 17rem;
+}
+
+.add-prescription-button {
+    margin-left: 7%;
+}
+
+h4,
+legend {
+    margin-left: 2% !important;
+    margin-bottom: 0.5rem;
+}
+
+.form-group {
+    gap: 8px;
+}
+
+.add-medicine-button {
+    margin-top: 4%;
+}
+
+td {
+    padding: 0.3rem 0.3rem;
+}
+
+.remove-medicine {
+    margin-left: 1%;
+}
+
+button {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+}

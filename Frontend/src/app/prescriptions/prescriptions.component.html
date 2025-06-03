@@ -1,0 +1,58 @@
+<div class="form-wrapper">
+    <button class="btn btn-success add-prescription-button" (click)="toggleForm()">
+        {{ showForm ? 'Cancel' : 'Add Prescription' }}
+    </button>
+
+    @if(showForm) {
+    <div class="form-container">
+        <form>
+            <table>
+                <thead>
+                    <th></th>
+                    <th class="fs-5">Prescription</th>
+                    <th></th>
+                </thead>
+                <tr>
+                    <td><label class="form-label" for="date">Date:</label></td>
+                    <td><input class="form-control w-auto" type="date" #date required></td>
+                </tr>
+                <tr>
+                    <td><label class="form-label" for="diagnosis">Diagnosis:</label></td>
+                    <td><input class="form-control w-auto" type="text" #diagnosis required></td>
+                </tr>
+                @for (medicine of prescription.medicines; let i = $index; track i) {
+                <tr class="medicine-tr">
+                    <td>
+                        @if(i === 0) {
+                        <label class="form-label">Medicines:</label>
+                        }
+                    </td>
+                    <td class="medicine-td">
+                        <input class="form-control w-auto" type="text" [value]="medicine"
+                            (input)="updateMedicine($event.target.value, i)" required>
+                    </td>
+                    <td>
+                        @if (i > 0) {
+                        <button class="btn btn-outline-success remove-medicine" type="button"
+                            (click)="removeMedicine(i)">
+                            Remove
+                        </button>
+                        }
+                        @if (i === 0) {
+                        <span class="placeholder"></span>
+                        }
+                    </td>
+                </tr>
+                }
+            </table>
+            <button class="btn btn-outline-success add-medicine-button" type="button" (click)="addMedicine()">Add
+                Medicine</button>
+            <br><br>
+            <button class="btn btn-primary" type="button" (click)="savePrescription(date.value, diagnosis.value)">Submit
+                Prescription</button>
+        </form>
+    </div>
+    }
+</div>
+<app-modals *ngIf="modalService.modalType() === 'notify'" [type]="modalService.modalType()"
+    [message]="modalService.modalMessage"></app-modals>

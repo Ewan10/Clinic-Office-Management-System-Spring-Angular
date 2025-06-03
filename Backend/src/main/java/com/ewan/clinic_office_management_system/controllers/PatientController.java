@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ewan.clinic_office_management_system.dto.PatientBasicDto;
+import com.ewan.clinic_office_management_system.dto.PatientDto;
 import com.ewan.clinic_office_management_system.models.Patient;
 import com.ewan.clinic_office_management_system.services.PatientService;
 import jakarta.persistence.EntityNotFoundException;
@@ -26,25 +29,25 @@ public class PatientController {
     private PatientService patientService;
 
     @PostMapping("/register")
-    public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) {
-        Patient createdPatient = patientService.createPatient(patient);
+    public ResponseEntity<PatientDto> createPatient(@RequestBody PatientDto patientDto) {
+        PatientDto createdPatient = patientService.createPatient(patientDto);
         return new ResponseEntity<>(createdPatient, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<Patient> getAllPatients() {
+    public List<PatientBasicDto> getAllPatients() {
         return patientService.getAllPatients();
     }
 
     @GetMapping("/view/{id}")
-    public ResponseEntity<Patient> getPatientById(@PathVariable int id) {
-        Patient patient = patientService.getPatientById(id);
+    public ResponseEntity<PatientDto> getPatientById(@PathVariable int id) {
+        PatientDto patient = patientService.getPatientById(id);
         return ResponseEntity.ok(patient);
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Patient> updatePatient(@PathVariable int id, @RequestBody Patient updatedPatient) {
-        Patient existingPatient = patientService.getPatientById(id);
+    public ResponseEntity<PatientDto> updatePatient(@PathVariable int id, @RequestBody Patient updatedPatient) {
+        PatientDto existingPatient = patientService.getPatientById(id);
         if (updatedPatient.getFirstName() != null) {
             existingPatient.setFirstName(updatedPatient.getFirstName());
         }
@@ -69,7 +72,7 @@ public class PatientController {
         if (updatedPatient.getHistory() != null) {
             existingPatient.setHistory(updatedPatient.getHistory());
         }
-        Patient savedPatient = patientService.updatePatient(existingPatient);
+        PatientDto savedPatient = patientService.updatePatient(existingPatient);
         return ResponseEntity.ok(savedPatient);
     }
 

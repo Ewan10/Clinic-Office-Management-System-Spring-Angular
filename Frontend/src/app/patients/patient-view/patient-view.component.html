@@ -1,53 +1,87 @@
 <div class="patient-view">
-    <div *ngIf="patient" class="container d-flex flex-fill justify-content-start">
-        <table class="table patient-table w-auto">
-            <tr>
-                <th class="fs-5" scope="row"> First Name:</th>
-                <td> {{ patient.firstName }}</td>
+    <div *ngIf="patient">
+        <div class="container d-flex flex-fill justify-content-start">
+            <table class="table patient-table w-auto">
+                <tr>
+                    <th class="fs-5" scope="row"> First Name:</th>
+                    <td> {{ patient.firstName }}</td>
 
-            </tr>
-            <tr>
-                <th class="fs-5" scope="row"> Last Name:</th>
-                <td> {{ patient.lastName }}</td>
+                </tr>
+                <tr>
+                    <th class="fs-5" scope="row"> Last Name:</th>
+                    <td> {{ patient.lastName }}</td>
 
-            </tr>
-            <tr>
-                <th class="fs-5" scope="row"> H.I.No.:</th>
-                <td> {{ patient.healthInsuranceNumber }}</td>
+                </tr>
+                <tr>
+                    <th class="fs-5" scope="row"> H.I.No.:</th>
+                    <td> {{ patient.healthInsuranceNumber }}</td>
 
-            </tr>
-            <tr>
-                <th class="fs-5" scope="row"> Phone No.:</th>
-                <td> {{ patient.phoneNumber }}</td>
+                </tr>
+                <tr>
+                    <th class="fs-5" scope="row"> Phone No.:</th>
+                    <td> {{ patient.phoneNumber }}</td>
 
-            </tr>
-            <tr>
-                <th class="fs-5" scope="row"> Email:</th>
-                <td> {{ patient.email }}</td>
+                </tr>
+                <tr>
+                    <th class="fs-5" scope="row"> Email:</th>
+                    <td> {{ patient.email }}</td>
 
-            </tr>
-            <tr>
-                <th class="fs-5" scope="row"> Age:</th>
-                <td> {{ patient.age }}</td>
+                </tr>
+                <tr>
+                    <th class="fs-5" scope="row"> Age:</th>
+                    <td> {{ patient.age }}</td>
 
-            </tr>
-            <tr>
-                <th class="fs-5" scope="row"> Gender:</th>
-                <td> {{ patient.gender }}</td>
+                </tr>
+                <tr>
+                    <th class="fs-5" scope="row"> Gender:</th>
+                    <td> {{ patient.gender }}</td>
 
-            </tr>
-        </table>
-        <div class="history-wrapper flex-fill text-center">
-            <h3>History</h3>
-            <div class="history-text mx-auto">
-                <p>{{ patient.history }}</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores accusantium nostrum
-                    est maiores obcaecati pariatur, cum eius magnam, quis rerum repellendus aperiam doloremque
-                    debitis ea, sunt porro quia necessitatibus distinctio?
-                    Molestias dolores reprehenderit placeat ratione aut cumque tenetur debitis,
-                    voluptatibus, nostrum perspiciatis animi fuga? Ipsa neque repudiandae non facilis
-                    et doloremque accusantium atque, adipisci perspiciatis, minima corrupti animi odit
-                    pariatur!</p>
+                </tr>
+            </table>
+            <div class="history-wrapper flex-fill text-center">
+                <h3>History</h3>
+                <div class="history-text mx-auto">
+                    <p>{{ patient.history }}</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores accusantium nostrum
+                        est maiores obcaecati pariatur, cum eius magnam, quis rerum repellendus aperiam doloremque
+                        debitis ea, sunt porro quia necessitatibus distinctio?
+                        Molestias dolores reprehenderit placeat ratione aut cumque tenetur debitis,
+                        voluptatibus, nostrum perspiciatis animi fuga? Ipsa neque repudiandae non facilis
+                        et doloremque accusantium atque, adipisci perspiciatis, minima corrupti animi odit
+                        pariatur!</p>
+                </div>
+            </div>
+        </div>
+        <app-prescriptions [patientId]="patient.id"></app-prescriptions>
+        <div class="prescriptions">
+            <div class="prescriptions-button">
+                <button class="btn btn-info" (click)="togglePrescriptions()" type="button">
+                    {{!showPrescriptions? 'Show Prescriptions': 'Hide Prescriptions'}}</button>
+            </div>
+            <div class="prescriptions-row">
+                <div class="col">
+                    @if(patient.prescriptions.length === 0 && showPrescriptions) {
+                    <p class="mt-3"><strong>No prescriptions records</strong></p>
+                    }
+                    @else if(showPrescriptions && patient.prescriptions.length > 0) {
+                    <h4>Prescriptions</h4>
+                    @for(p of patient.prescriptions; track i) {
+                    <div class="prescription-item">
+                        <table class="prescription-table">
+                            <tr>
+                                <td><strong>Date:</strong> {{ p.date | date:'shortDate' }}</td>
+                                <td><strong>Diagnosis:</strong> {{ p.diagnosis }}</td>
+                                <td><strong>Medicines:</strong>
+                                    @for(medicine of p.medicines; track i) {
+                                    {{ medicine }}
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    }
+                    }
+                </div>
             </div>
         </div>
     </div>

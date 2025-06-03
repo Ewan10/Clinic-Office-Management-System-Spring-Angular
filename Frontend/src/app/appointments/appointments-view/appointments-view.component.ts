@@ -31,12 +31,20 @@ export class AppointmentsViewComponent implements OnInit {
     this.appointmentsService.viewAll()
       .subscribe((response: any) => {
         this.isLoading = false;
-        this.appointments = [...response];
+        this.appointments = this.sortAppointments(response);
       },
         (error) => {
           this.isLoading = false;
           this.modalService.onNotify(error?.message, '/');
         });
+  }
+
+  private sortAppointments(appointments: Appointment[]): Appointment[] {
+    return [...appointments].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA.getTime() - dateB.getTime();
+    });
   }
 
   onEdit($event) {

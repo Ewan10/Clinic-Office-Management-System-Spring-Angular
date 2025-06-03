@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { PatientsService } from './services/patients.service';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AuthenticationService } from './services/authentication.service';
 import { Subscription } from 'rxjs';
 import { HeaderComponent } from './header/header.component';
@@ -15,9 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  constructor(private patientsService: PatientsService,
-    private authService: AuthenticationService) { }
-
+  authService = inject(AuthenticationService);
   private userSubscriprition: Subscription;
   isAuthenticated = false;
 

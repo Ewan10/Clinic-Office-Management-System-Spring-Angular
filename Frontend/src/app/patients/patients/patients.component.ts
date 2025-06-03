@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Patient, PatientsService } from 'src/app/services/patients.service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { PatientsService } from 'src/app/services/patients.service';
+import { Router, RouterModule } from '@angular/router';
 import { ModalService } from 'src/app/services/modal.service';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+
 import { ModalsComponent } from 'src/app/shared/modals/modals.component';
+import { PatientBasic, PatientDetailed } from 'src/app/models';
 
 declare var bootstrap: any;
 
@@ -21,8 +22,8 @@ export class PatientsComponent implements OnInit {
   private router = inject(Router);
   modalService = inject(ModalService);
 
-  patient: Patient;
-  patients: Patient[];
+  patient: PatientDetailed;
+  patients: PatientBasic[];
   isLoading = false;
   errorMessage: string = '';
 
@@ -38,22 +39,37 @@ export class PatientsComponent implements OnInit {
         this.isLoading = false;
       },
         (error) => {
-          this.errorMessage = error?.message;
+          this.modalService.onNotify(`Failed to load the patients: ${error.message}`, '/');
         }
       )
   }
 
   onViewPatient($event) {
-    this.router.navigate([`/patients/view/${$event}`]);
+    this.patientsService.viewPatient($event).subscribe({
+      next: (patient) => {
+        this.patientsService.setPatient(patient);
+        this.router.navigate([`/patients/view/${$event}`]);
+      },
+      error: (error) => {
+        this.modalService.onNotify(`Failed to get the patient: ${error.message}`, '/patients');
+      }
+    });
+
   }
 
   onEdit($event) {
-    const patient = this.patients.find((patient) => patient.id === $event);
-    this.patientsService.setPatient(patient);
-    this.router.navigate([`/patients/edit/${patient.id}`]);
+    this.patientsService.viewPatient($event).subscribe({
+      next: (patient) => {
+        this.patientsService.setPatient(patient);
+        this.router.navigate([`/patients/edit/${$event}`]);
+      },
+      error: (error) => {
+        this.modalService.onNotify(`Failed to get the patient: ${error.message}`, '/patients');
+      }
+    });
   }
 
-  private removePatient = (patients: Patient[], id): void => {
+  private removePatient = (patients: PatientBasic[], id): void => {
     const index = patients.findIndex((patient) => patient.id === id);
     if (index !== -1) {
       patients.splice(index, 1);

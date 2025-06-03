@@ -1,11 +1,12 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Patient, PatientsService } from 'src/app/services/patients.service';
+import { PatientsService } from 'src/app/services/patients.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { PatientFormComponent } from '../patient-form/patient-form.component';
 import { ModalsComponent } from 'src/app/shared/modals/modals.component';
 import { CommonModule } from '@angular/common';
+import { PatientDetailed } from 'src/app/models';
 
 @Component({
   selector: 'app-patient-edit',
@@ -19,7 +20,7 @@ export class PatientEditComponent {
   private route = inject(ActivatedRoute);
   modalService = inject(ModalService);
 
-  patient: Patient;
+  patient: PatientDetailed;
   modalType = signal<string | null>('');
   modalMessage = signal<string>('');
 
@@ -37,7 +38,7 @@ export class PatientEditComponent {
   onEdit(patient) {
     this.patientsService.updatePatient(patient)
       .subscribe(
-        (response: HttpResponse<Patient>) => {
+        (response: HttpResponse<PatientDetailed>) => {
           if (response.status === 200) {
             this.modalService.onNotify(
               `Patient: ${patient.firstName} ${patient.lastName} updated successfully!`,

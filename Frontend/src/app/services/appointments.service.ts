@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import { exhaustMap, take, catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
@@ -20,11 +20,9 @@ export interface Appointment {
   providedIn: 'root'
 })
 export class AppointmentsService {
-
-  constructor(private authService: AuthenticationService,
-    private http: HttpClient,
-    private errorHandler: ErrorHandlerService
-  ) { }
+  private authService = inject(AuthenticationService);
+  private errorHandler = inject(ErrorHandlerService);
+  private http = inject(HttpClient);
 
   url = environment.url;
 

@@ -27,6 +27,16 @@ h3 {
     margin-top: 2%;
 }
 
+.prescriptions {
+    display: flex;
+    margin-top: 1%;
+    gap: 13rem;
+}
+
+.prescriptions-button button {
+    width: 11rem;
+}
+
 .history-wrapper {
     margin-top: 4%;
     margin-left: 8%;
@@ -40,5 +50,29 @@ h3 {
 
 #back {
     width: fit-content;
-    margin-left: 12%;
+    margin-left: 7%;
+    margin-top: 1%;
+    margin-bottom: 0.5rem;
+}
+
+.prescriptions-button {
+    margin-left: 6%;
+}
+
+.prescription-table tr td,
+thead th {
+    background-color: rgb(242, 244, 252);
+}
+
+.prescription-table th,
+.prescription-table td {
+    width: 300px;
+    text-align: left;
+    height: 100px;
+    padding: 0.5rem;
+}
+
+.prescription-table td {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 }

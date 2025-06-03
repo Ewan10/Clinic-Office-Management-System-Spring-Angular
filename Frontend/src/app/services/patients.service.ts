@@ -1,58 +1,45 @@
 import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { AuthenticationService } from "./authentication.service";
 import { catchError, exhaustMap, map, take, timeout } from "rxjs/operators";
 import { BehaviorSubject, Observable } from "rxjs";
 import { ErrorHandlerService } from "./error-handler.service";
-
-export interface Patient {
-    id: number,
-    firstName: string,
-    lastName: string,
-    phoneNumber: string,
-    email: string,
-    healthInsuranceNumber: number,
-    age: number,
-    gender: string,
-    history: string
-}
+import { PatientBasic, PatientDetailed, Prescription } from "../models";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PatientsService {
-    constructor(
-        private http: HttpClient,
-        private authService: AuthenticationService,
-        private errorHanlder: ErrorHandlerService
-    ) { }
-
-    private patientsSubject = new BehaviorSubject<Patient[]>([]);
+    authService = inject(AuthenticationService);
+    http = inject(HttpClient);
+    errorHandler = inject(ErrorHandlerService);
+    private patientsSubject = new BehaviorSubject<PatientDetailed | null>(null);
     patients$ = this.patientsSubject.asObservable();
 
     url = environment.url;
-    patient: Patient | null = null;
+    patient: PatientDetailed | null = null;
 
-    setPatient(patient: Patient) {
+    setPatient(patient: PatientDetailed) {
         this.patient = patient;
+        this.patientsSubject.next(patient);
     }
 
-    getPatient(): Patient | null {
+    getPatient(): PatientDetailed | null {
         return this.patient;
     }
 
-    registerPatient(patient: Patient): Observable<HttpResponse<Patient>> {
+    registerPatient(patient: PatientDetailed): Observable<HttpResponse<PatientDetailed>> {
         return this.authService.user.pipe(
             take(1),
             exhaustMap(user => {
-                return this.http.post<Patient>(this.url + '/patients/register', patient,
+                return this.http.post<PatientDetailed>(this.url + '/patients/register', patient,
                     {
                         headers: new HttpHeaders({ 'Authorization': `Bearer ${user.token}` }),
                         observe: 'response'
                     });
             }),
-            catchError((error) => this.errorHanlder.handleError(error, 'Failed to register patient'))
+            catchError((error) => this.errorHandler.handleError(error, 'Failed to register patient'))
         )
     }
 
@@ -60,14 +47,14 @@ export class PatientsService {
         return this.authService.user.pipe(
             take(1),
             exhaustMap(user => {
-                return this.http.get<{ [key: string]: Patient }>(this.url + '/patients',
+                return this.http.get<{ [key: string]: PatientBasic }>(this.url + '/patients',
                     {
                         headers: new HttpHeaders({ 'Authorization': `Bearer ${user.token}` })
                     }).pipe(
                         timeout(3000)
                     );
             }),
-            catchError((error) => this.errorHanlder.handleError(error)),
+            catchError((error) => this.errorHandler.handleError(error)),
             map((response) => {
                 const patients = [];
                 for (const key in response) {
@@ -84,26 +71,40 @@ export class PatientsService {
         return this.authService.user.pipe(
             take(1),
             exhaustMap(user => {
-                return this.http.get<Patient>(this.url + `/patients/view/${id}`,
+                return this.http.get<PatientDetailed>(this.url + `/patients/view/${id}`,
                     {
                         headers: new HttpHeaders({ 'Authorization': `Bearer ${user.token}` })
                     });
             }),
-            catchError((error) => this.errorHanlder.handleError(error, 'Failed to load patient.')),
+            catchError((error) => this.errorHandler.handleError(error, 'Failed to load patient.')),
         )
     }
 
-    updatePatient(patient: Patient): Observable<HttpResponse<Patient>> {
+    updatePatient(patient: PatientDetailed): Observable<HttpResponse<PatientDetailed>> {
         return this.authService.user.pipe(
             take(1),
             exhaustMap(user => {
-                return this.http.put<Patient>(this.url + `/patients/edit/${patient.id}`, patient,
+                return this.http.put<PatientDetailed>(this.url + `/patients/edit/${patient.id}`, patient,
                     {
                         headers: new HttpHeaders({ 'Authorization': `Bearer ${user.token}` }),
                         observe: 'response'
                     });
             }),
-            catchError((error) => this.errorHanlder.handleError(error, 'Failed to update patient')),
+            catchError((error) => this.errorHandler.handleError(error, 'Failed to update patient')),
+        )
+    }
+
+    createPrescription(patientId: number, prescription: any): Observable<HttpResponse<Prescription>> {
+        return this.authService.user.pipe(
+            take(1),
+            exhaustMap(user => {
+                return this.http.post<Prescription>(this.url + `/patients/view/${patientId}/prescriptions`, prescription,
+                    {
+                        headers: new HttpHeaders({ 'Authorization': `Bearer ${user.token}` }),
+                        observe: 'response'
+                    });
+            }),
+            catchError((error) => this.errorHandler.handleError(error, 'Failed to create prescription')),
         )
     }
 
@@ -116,7 +117,7 @@ export class PatientsService {
                         headers: new HttpHeaders({ 'Authorization': `Bearer ${user.token}` })
                     })
             }),
-            catchError((error) => this.errorHanlder.handleError(error, 'Failed to delete patient')),
+            catchError((error) => this.errorHandler.handleError(error, 'Failed to delete patient')),
         )
     }
 }

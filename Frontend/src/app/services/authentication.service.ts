@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { User } from '../authentication/user.model';
 import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
@@ -13,10 +13,9 @@ import { ErrorHandlerService } from './error-handler.service';
 export class AuthenticationService {
   user = new BehaviorSubject<User>(null);
   url = environment.url;
-  constructor(private http: HttpClient,
-    private router: Router,
-    private errorHandler: ErrorHandlerService
-  ) { }
+  private errorHandler = inject(ErrorHandlerService);
+  private http = inject(HttpClient);
+  private router = inject(Router);
 
   onSignUp(user) {
     return this.http.post<User>(this.url + '/signUp', user)
