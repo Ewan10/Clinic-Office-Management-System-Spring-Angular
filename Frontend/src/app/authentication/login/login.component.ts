@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { User } from '.././user.model';
+import { User } from '../../models/user.model';
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
@@ -28,8 +28,8 @@ export class LoginComponent {
     };
     this.isLoading = true;
     this.authService.onLogin(user)
-      .subscribe((response: any) => {
-        this.user = response['user'];
+      .subscribe((response: User) => {
+        this.user = response;
         this.router.navigate(['/']);
         this.isLoading = false;
         localStorage.setItem('user', JSON.stringify(this.user));

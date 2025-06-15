@@ -25,7 +25,6 @@ export class PatientViewComponent implements OnInit {
         this.router.navigate(['/patients']);
       }
     })
-    // this.patient = this.patientsService.getPatient();
 
   }
 

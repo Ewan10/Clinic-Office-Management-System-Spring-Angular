@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { flatMap } from 'rxjs';
 
 declare var bootstrap: any;
 @Component({

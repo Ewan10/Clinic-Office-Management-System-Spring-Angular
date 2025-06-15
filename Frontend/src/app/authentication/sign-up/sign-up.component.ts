@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { User } from '../user.model';
+import { User } from '../../models/user.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -42,8 +42,11 @@ export class SignUpComponent {
             this.isLoading = false;
           }
         );
-    } else {
+    }
+    else {
       this.formInvalid = true;
+      this.errorMessage = 'Passwords do not match';
+
     }
   }
 }

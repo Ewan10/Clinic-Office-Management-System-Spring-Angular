@@ -13,20 +13,23 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [RouterModule, HeaderComponent, HttpClientModule]
 })
 export class AppComponent implements OnInit, OnDestroy {
+  constructor(private authService: AuthenticationService) { }
 
-  authService = inject(AuthenticationService);
-  private userSubscriprition: Subscription;
+  private userSubscription: Subscription;
   isAuthenticated = false;
 
   ngOnInit(): void {
-    this.userSubscriprition = this.authService.user.subscribe(user => {
-      this.isAuthenticated = !!user;
-      this.authService.autologin();
-    })
+    this.authService.autologin();
+    if (this.authService.user) {
+      this.userSubscription = this.authService.user.subscribe(user => {
+        this.isAuthenticated = !!user;
+      })
+    }
   }
 
-
   ngOnDestroy(): void {
-    this.userSubscriprition.unsubscribe();
+    if (this.userSubscription) {
+      this.userSubscription?.unsubscribe();
+    }
   }
 }

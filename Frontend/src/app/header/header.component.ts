@@ -32,6 +32,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.userSubscriprition.unsubscribe();
+    this.userSubscriprition?.unsubscribe();
   }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { User } from '../authentication/user.model';
+import { User } from '../models/user.model';
 import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -8,7 +9,7 @@ import { PatientDetailed } from 'src/app/models';
   templateUrl: './patient-form.component.html',
   styleUrls: ['./patient-form.component.css'],
   standalone: true,
-  imports: [FormsModule, RouterModule]
+  imports: [FormsModule, RouterModule, CommonModule]
 })
 export class PatientFormComponent {
 

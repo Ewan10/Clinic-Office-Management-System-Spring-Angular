@@ -6,7 +6,7 @@
             <div>
                 <label class="form-label fs-5" for="fisrtName">First Name</label>
                 <input class="form-control" type="text" placeholder="First Name" [ngModel]="patient.firstName"
-                    name="firstName" required #firstName="ngModel" [pattern]="'^[a-zA-Z]$+'">
+                    name="firstName" required #firstName="ngModel" [pattern]="'^[a-zA-Z]+$'">
                 <span class="help-block" *ngIf="!firstName.valid && firstName.touched">
                     Please enter the first name</span>
             </div>
@@ -14,7 +14,7 @@
             <div class="my-4">
                 <label class="form-label fs-5" for="lastName">Last Name</label>
                 <input class="form-control" type="text" Last Name [ngModel]="patient.lastName" name="lastName" required
-                    #lastName="ngModel" [pattern]="'^[a-zA-Z]$+'">
+                    #lastName="ngModel" [pattern]="'^[a-zA-Z]+$'">
                 <span class="help-block" *ngIf="!lastName.valid && lastName.touched">
                     Please enter the last name</span>
             </div>
