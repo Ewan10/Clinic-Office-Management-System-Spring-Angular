@@ -20,7 +20,7 @@ export class ModalService {
     );
   }
 
-  modalType: ReturnType<typeof signal> = signal<string | null>('');
+  modalType: ReturnType<typeof signal> = signal<string | null>(null);
   modalMessage: string;
   confirm = signal<boolean | null>(null);
   pendingConfirmation = signal<{

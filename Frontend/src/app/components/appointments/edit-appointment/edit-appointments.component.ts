@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Appointment, AppointmentsService } from '../../services/appointments.service';
+import { Appointment, AppointmentsService } from '../../../services/appointments.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 import { ModalService } from 'src/app/services/modal.service';

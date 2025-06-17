@@ -1,10 +1,10 @@
 import { Component, inject, Input } from '@angular/core';
-import { Prescription } from '../models';
+import { Prescription } from '../../models';
 import { CommonModule } from '@angular/common';
-import { PatientsService } from '../services/patients.service';
+import { PatientsService } from '../../services/patients.service';
 import { HttpResponse } from '@angular/common/http';
-import { ModalsComponent } from '../shared/modals/modals.component';
-import { ModalService } from '../services/modal.service';
+import { ModalsComponent } from '../../shared/modals/modals.component';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-prescriptions',

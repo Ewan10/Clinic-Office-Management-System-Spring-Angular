@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { Appointment } from 'src/app/services/appointments.service';
 import { CalendarComponent } from '../calendar/calendar.component';
@@ -12,7 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './appointment-form.component.html',
   styleUrls: ['./appointment-form.component.css'],
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule, MatDialogModule, CalendarComponent]
+  imports: [FormsModule, CommonModule, RouterModule, CalendarComponent]
 })
 export class AppointmentFormComponent {
 

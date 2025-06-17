@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrescriptionsComponent } from './prescriptions.component';
-import { PatientsService } from '../services/patients.service';
+import { PatientsService } from '../../services/patients.service';
 import { of } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 
