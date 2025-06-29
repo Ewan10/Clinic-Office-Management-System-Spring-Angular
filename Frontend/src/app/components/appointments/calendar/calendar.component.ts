@@ -77,7 +77,7 @@ export class CalendarComponent implements OnInit {
 
     this.slotSelected.emit(selected);
 
-    const start = new Date(selected.date);
+    const start = new Date(arg.date);
     const end = new Date(start.getTime() + 20 * 60000);
 
     const timeStart = format(start, 'HH:mm');

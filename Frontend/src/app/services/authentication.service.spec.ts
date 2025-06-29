@@ -3,6 +3,9 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { AuthenticationService } from './authentication.service';
 import { ErrorHandlerService } from './error-handler.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { User } from '../models/user.model';
 
 describe('AuthenticationService', () => {
     let service: AuthenticationService;
@@ -10,20 +13,22 @@ describe('AuthenticationService', () => {
     let mockUser: { userName: string, password: string };
     let mockResponse: { expiresIn: Date | number, userName: string, token: string, _token: string };
     let errorResponse: HttpErrorResponse;
-    let errorHandlerSpy: jasmine.SpyObj<ErrorHandlerService>;
+    let routerSpy: jasmine.SpyObj<Router>;
+
 
     beforeEach(() => {
         mockUser = { userName: 'testUser', password: 'testPass' };
         mockResponse = { expiresIn: new Date(Date.now() + 3600 * 1000), userName: 'testUser', token: '12345', _token: '12345' };
+        routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
 
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [AuthenticationService,
-                { provide: ErrorHandlerService, useValue: jasmine.createSpyObj('ErrorHandlerService', ['handleError']) }
+                { provide: ErrorHandlerService, useValue: jasmine.createSpyObj('ErrorHandlerService', ['handleError']) },
+                { provide: Router, useValue: routerSpy }
             ]
         });
         service = TestBed.inject(AuthenticationService);
-        errorHandlerSpy = TestBed.inject(ErrorHandlerService) as jasmine.SpyObj<ErrorHandlerService>;
         httpMock = TestBed.inject(HttpTestingController);
 
         errorResponse = new HttpErrorResponse({
@@ -120,5 +125,11 @@ describe('AuthenticationService', () => {
 
         const req = httpMock.expectOne(service['url'] + '/signUp');
         req.flush(errorResponse.error, { status: errorResponse.status, statusText: errorResponse.statusText });
+    })
+
+    it('should clear the user and navigate to root on logout', () => {
+        const userSubject = service.user as BehaviorSubject<User>;
+        userSubject.next(new User(new Date(), 'testUser', 'testToken'));
+        service.logout();
     })
 });

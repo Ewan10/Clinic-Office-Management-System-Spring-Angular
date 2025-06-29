@@ -42,7 +42,6 @@ export class AuthenticationService {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
     }
-
   }
 
   autologin() {

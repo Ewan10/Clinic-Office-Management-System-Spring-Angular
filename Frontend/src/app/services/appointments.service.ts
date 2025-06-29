@@ -81,30 +81,6 @@ export class AppointmentsService {
     )
   }
 
-  getappointmentName(id: number) {
-    return this.authService.user.pipe(
-      take(1),
-      exhaustMap(user => {
-        return this.http.get<{ firstName: string, lastName: string }>(this.url + `/appointments/${id}`,
-          {
-            headers: new HttpHeaders({ 'Authorization': `Bearer ${user.token}` })
-          });
-      }),
-    );
-  }
-
-  getappointmentId(lastName: string, firstName: string) {
-    return this.authService.user.pipe(
-      take(1),
-      exhaustMap(user => {
-        return this.http.get<{ appointmentId: number }>(this.url + `/appointments/makeAppointment/${lastName}/${firstName}`,
-          {
-            headers: new HttpHeaders({ 'Authorization': `Bearer ${user.token}` })
-          });
-      }),
-    );
-  }
-
   deleteAppointment(id: number) {
     return this.authService.user.pipe(
       take(1),

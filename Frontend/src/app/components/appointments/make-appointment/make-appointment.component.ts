@@ -27,6 +27,7 @@ export class MakeAppointmentComponent {
 
   private appointmentsService = inject(AppointmentsService);
   modalService = inject(ModalService);
+
   onSubmit(appointment: Appointment) {
     this.appointmentsService.registerAppointment(appointment)
       .subscribe((response: HttpResponse<Appointment>) => {
