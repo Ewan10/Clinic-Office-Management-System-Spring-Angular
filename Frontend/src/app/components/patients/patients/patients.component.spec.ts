@@ -37,6 +37,7 @@ describe('PatientsComponent', () => {
                 this.confirm.set(this.confirmResponse);
                 this.modalType.set('confirm');
                 this.pendingConfirmation.set({ resolve });
+                this.pendingConfirmation.set({ resolve });
             });
         });
 
@@ -56,6 +57,10 @@ describe('PatientsComponent', () => {
 
     beforeEach(async () => {
         routerSpy = jasmine.createSpyObj('Router', ['navigate', 'navigateByUrl']);
+        modalService.confirm.set(null);
+        modalService.pendingConfirmation.set(null);
+        modalService.modalType.set(null);
+
         await TestBed.configureTestingModule({
             imports: [PatientsComponent],
             providers: [
@@ -143,17 +148,15 @@ describe('PatientsComponent', () => {
         );
     }));
 
-    it('should not delete patient when confirmation is false', fakeAsync(() => {
+    it('should not delete patient when confirmation is false', async () => {
         component.patients = [...mockPatients];
-        (modalService.onConfirm as jasmine.Spy).and.callFake(() => Promise.resolve(false));
-        patientsServiceSpy.deletePatient.and.returnValue(of('Should not be called'));
-        (modalService.onNotify as jasmine.Spy).calls.reset();
-        component.onDelete(1);
-        tick();
-        tick();
+        const deletePromise = component.onDelete(1);
+        await new Promise(resolve => setTimeout(resolve, 100));
+        modalService.pendingConfirmation()?.resolve(false);
+        await deletePromise;
         expect(patientsServiceSpy.deletePatient).not.toHaveBeenCalled();
         expect(modalService.onNotify).not.toHaveBeenCalled();
-    }));
+    });
 
     it('should notify error if deletePatient errors', fakeAsync(() => {
         component.patients = [...mockPatients];

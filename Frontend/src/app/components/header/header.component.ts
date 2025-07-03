@@ -14,11 +14,11 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent implements OnInit, OnDestroy {
   private authService = inject(AuthenticationService);
   private router = inject(Router);
-  private userSubscriprition: Subscription;
+  private userSubscription: Subscription;
   isAuthenticated = false;
 
   ngOnInit(): void {
-    this.userSubscriprition = this.authService.user.subscribe(user => {
+    this.userSubscription = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
     });
   }
@@ -32,6 +32,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.userSubscriprition?.unsubscribe();
+    this.userSubscription?.unsubscribe();
   }
 }

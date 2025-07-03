@@ -18,6 +18,7 @@ export class PatientFormComponent {
   @Output() formSubmit = new EventEmitter<PatientDetailed>();
 
   onSubmit(form: NgForm) {
+    if (form.invalid) return;
     this.formSubmit.emit(this.buildPatientFromForm(form));
   }
 

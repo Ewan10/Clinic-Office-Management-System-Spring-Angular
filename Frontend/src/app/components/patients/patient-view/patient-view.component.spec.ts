@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PatientViewComponent } from './patient-view.component';
 import { PatientsService } from 'src/app/services/patients.service';
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { PatientDetailed } from 'src/app/models';
 
@@ -32,8 +32,8 @@ describe('PatientViewComponent', () => {
   };
 
   beforeEach(async () => {
-    patientsServiceSpy = jasmine.createSpyObj('PatientsService', [], {
-      patients$: of(mockPatient)
+    patientsServiceSpy = jasmine.createSpyObj('PatientsService', ['setPatient', 'getPatient'], {
+      patients$: new BehaviorSubject<PatientDetailed | null>(mockPatient)
     });
 
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
@@ -56,15 +56,27 @@ describe('PatientViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should set patient from patients$ observable', () => {
-  //   expect(component.patient).toEqual(mockPatient);
-  // });
+  it('should set patient when patients$ emits a value', () => {
+    (patientsServiceSpy.patients$ as BehaviorSubject<PatientDetailed | null>).next(mockPatient);
+    fixture.detectChanges();
+    expect(component.patient).toEqual(mockPatient);
+  });
 
-  // it('should navigate to /patients if patient is null', () => {
-  //   patientsServiceSpy.patients$ = of(null as any);
+  it('should navigate to /patients if patient is null', () => {
+    (patientsServiceSpy.patients$ as BehaviorSubject<PatientDetailed | null>).next(null);
+    fixture.detectChanges();
 
-  //   component.ngOnInit();
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/patients']);
+  });
 
-  //   expect(routerSpy.navigate).toHaveBeenCalledWith(['/patients']);
-  // });
+  it('should toggle showPrescriptions', () => {
+    expect(component.showPrescriptions).toBeFalse();
+    component.togglePrescriptions();
+    expect(component.showPrescriptions).toBeTrue();
+    component.togglePrescriptions();
+    expect(component.showPrescriptions).toBeFalse();
+  });
+
+
+
 });
