@@ -7,7 +7,7 @@ import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
 import { ErrorHandlerService } from './error-handler.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { PatientBasic } from '../models/patient-basic.model';
 import { Prescription } from '../models/prescription.model';
 
@@ -80,6 +80,18 @@ describe('PatientsService', () => {
         req.flush(mockPatient, { status: 200, statusText: 'OK' });
     });
 
+    it('should handle error when registering a patient', () => {
+        errorHandlerSpy.handleError.and.returnValue(throwError(() => new Error('Patient registration failed')));
+        patientsService.registerPatient(mockPatient).subscribe({
+            error: (err) => {
+                expect(errorHandlerSpy.handleError).toHaveBeenCalled();
+                expect(err.message).toBe('Patient registration failed');
+            }
+        });
+        const req = httpMock.expectOne(`${patientsService.url}/patients/register`);
+        req.error(new ProgressEvent('Network error'));
+    });
+
     it('should fetch all patients', () => {
         const backendResponse = {
             '1': mockPatientBasic
@@ -93,6 +105,18 @@ describe('PatientsService', () => {
         req.flush(backendResponse);
     });
 
+    it('should handle error when fetching all patients', () => {
+        errorHandlerSpy.handleError.and.returnValue(throwError(() => new Error('Fetching patients failed')));
+        patientsService.viewAll().subscribe({
+            error: (err) => {
+                expect(errorHandlerSpy.handleError).toHaveBeenCalled();
+                expect(err.message).toBe('Fetching patients failed');
+            }
+        });
+        const req = httpMock.expectOne(`${patientsService.url}/patients`);
+        req.error(new ProgressEvent('Network error'));
+    });
+
     it('should fetch a single patient by ID', () => {
         patientsService.viewPatient(1).subscribe(patient => {
             expect(patient).toEqual(mockPatient);
@@ -100,6 +124,18 @@ describe('PatientsService', () => {
         const req = httpMock.expectOne(`${patientsService.url}/patients/view/1`);
         expect(req.request.method).toBe('GET');
         req.flush(mockPatient);
+    });
+
+    it('should handle error when fetching a patient by ID', () => {
+        errorHandlerSpy.handleError.and.returnValue(throwError(() => new Error('fetching patient failed')));
+        patientsService.viewPatient(1).subscribe({
+            error: (error) => {
+                expect(errorHandlerSpy.handleError).toHaveBeenCalled();
+                expect(error.message).toBe('fetching patient failed');
+            }
+        });
+        const req = httpMock.expectOne(`${patientsService.url}/patients/view/1`);
+        req.error(new ProgressEvent('Network error'));
     });
 
     it('should update a patient', () => {
@@ -110,6 +146,18 @@ describe('PatientsService', () => {
         expect(req.request.method).toBe('PUT');
         expect(req.request.headers.get('Authorization')).toBe(`Bearer ${testToken}`);
         req.flush(mockPatient, { status: 200, statusText: 'OK' });
+    });
+
+    it('should handle error when updating a patient', () => {
+        errorHandlerSpy.handleError.and.returnValue(throwError(() => new Error('Updating patient details failed')));
+        patientsService.updatePatient(mockPatient).subscribe({
+            error: (err) => {
+                expect(errorHandlerSpy.handleError).toHaveBeenCalled();
+                expect(err.message).toBe('Updating patient details failed');
+            }
+        });
+        const req = httpMock.expectOne(`${patientsService.url}/patients/edit/1`);
+        req.error(new ProgressEvent('Network error'));
     });
 
     it('should create a prescription', () => {
@@ -123,6 +171,20 @@ describe('PatientsService', () => {
         req.flush(response);
     });
 
+    it('should handle error when creating a prescription', () => {
+        errorHandlerSpy.handleError.and.returnValue(throwError(() => new Error('Saving prescription failed')));
+        const prescription = { date: '20024-04-23', diagnosis: '', medicines: ['TestMed'] };
+        patientsService.createPrescription(1, prescription).subscribe({
+            error: (err) => {
+                expect(errorHandlerSpy.handleError).toHaveBeenCalled();
+                expect(err.message).toBe('Saving prescription failed');
+            }
+        });
+        const req = httpMock.expectOne(`${patientsService.url}/patients/view/1/prescriptions`);
+        req.error(new ProgressEvent('Network error'));
+    });
+
+
     it('should delete a patient', () => {
         patientsService.deletePatient(1).subscribe(res => {
             expect(res).toBe('deleted');
@@ -130,6 +192,18 @@ describe('PatientsService', () => {
         const req = httpMock.expectOne(`${patientsService.url}/patients/1`);
         expect(req.request.method).toBe('DELETE');
         req.flush('deleted');
+    });
+
+    it('should handle error when deleting a patient', () => {
+        errorHandlerSpy.handleError.and.returnValue(throwError(() => new Error('Deleting patient failed')));
+        patientsService.deletePatient(1).subscribe({
+            error: (err) => {
+                expect(errorHandlerSpy.handleError).toHaveBeenCalled();
+                expect(err.message).toBe('Deleting patient failed');
+            }
+        });
+        const req = httpMock.expectOne(`${patientsService.url}/patients/1`);
+        req.error(new ProgressEvent('Network error'));
     });
 
 });
