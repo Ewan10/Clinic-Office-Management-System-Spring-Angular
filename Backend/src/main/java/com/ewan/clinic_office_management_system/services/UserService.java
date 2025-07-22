@@ -17,7 +17,6 @@ import com.ewan.clinic_office_management_system.repositories.UserRepository;
 
 @Service
 public class UserService {
-
     @Autowired
     private final UserRepository userRepository;
     @Autowired
@@ -27,9 +26,13 @@ public class UserService {
     @Autowired
     private JWTService jwtService;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+            JWTService jwtService,
+            AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
     }
 
     public ResponseEntity<Map<String, Object>> signUp(@RequestBody User user) {
@@ -53,7 +56,6 @@ public class UserService {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
-
     }
 
     public ResponseEntity<Map<String, Object>> login(User user) {
@@ -61,13 +63,11 @@ public class UserService {
         try {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
-
             if (authentication.isAuthenticated()) {
                 String token = jwtService.generateToken(user.getUserName());
                 response.put("token", token);
                 response.put("userName", user.getUserName());
                 response.put("expiresIn", 8 * 60 * 60 * 1000);
-                System.out.println("Token: " + token);
                 return ResponseEntity.ok(response);
             } else {
                 response.put("body", "Invalid username or password");

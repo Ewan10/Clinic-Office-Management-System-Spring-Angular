@@ -16,7 +16,6 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class PatientService {
-
     @Autowired
     private PatientRepository patientRepository;
 
@@ -94,7 +93,7 @@ public class PatientService {
 
     private Patient convertToPatient(PatientDto dto) {
         Patient patient = new Patient();
-        patient.setId(dto.getId()); // Often optional for creation
+        patient.setId(dto.getId());
         patient.setFirstName(dto.getFirstName());
         patient.setLastName(dto.getLastName());
         patient.setPhoneNumber(dto.getPhoneNumber());
