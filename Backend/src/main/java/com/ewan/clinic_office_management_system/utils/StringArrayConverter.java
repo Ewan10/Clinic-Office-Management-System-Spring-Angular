@@ -8,7 +8,6 @@ import java.io.IOException;
 
 @Converter
 public class StringArrayConverter implements AttributeConverter<String[], String> {
-
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
