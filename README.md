@@ -6,6 +6,8 @@ The Clinic Office Management System is an application serving various operations
 
 This project was implemented in VSCode by the use of Angular, Spring, Spring Boot and MySQL for the database. Various additional features of functionality and software packages were implemented and employed for the development of the project as the Bootstrap library, the FullCalendar library for the UI or the JWT dependencies for authentication in Spring.
 
+![Screenshots](/Screenshots/home_page.png)
+
 # Instructions for compiling the project 
 
 Will be given in due time
