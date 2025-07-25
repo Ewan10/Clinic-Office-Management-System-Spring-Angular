@@ -10,6 +10,8 @@ This project was implemented in VSCode by the use of Angular, Spring, Spring Boo
 
 ![Screenshots](/Screenshots/update_appointment.png)
 
+![Screenshots](/Screenshots/patient_view.png)
+
 # Instructions for compiling the project 
 
 Will be given in due time
