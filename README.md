@@ -8,6 +8,8 @@ This project was implemented in VSCode by the use of Angular, Spring, Spring Boo
 
 ![Screenshots](/Screenshots/home_page.png)
 
+![Screenshots](/Screenshots/update_appointment.png)
+
 # Instructions for compiling the project 
 
 Will be given in due time
